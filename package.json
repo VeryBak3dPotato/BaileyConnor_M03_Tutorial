@@ -1,0 +1,23 @@
+{
+  "name": "baileyconnor_m03_tutorial",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VeryBak3dPotato/BaileyConnor_M03_Tutorial.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VeryBak3dPotato/BaileyConnor_M03_Tutorial/issues"
+  },
+  "homepage": "https://github.com/VeryBak3dPotato/BaileyConnor_M03_Tutorial#readme",
+  "description": "",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
