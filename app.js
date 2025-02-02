@@ -22,54 +22,15 @@ app.set('view engine', 'ejs');
 
 // Middleware & Static Files
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-
 app.use((req, res, next) => {
-    console.log('New Request Made:');
-    console.log('Host: ', req.hostname);
-    console.log('Path: ', req.path);
-    console.log('Method: ', req.method);
+    res.locals.path = req.path;
     next();
 });
 
 
-// Mongoose & MongoDB Tests
-app.get('/add-blog', (req, res) => {
-    const blog = new Blog({
-        title: 'New Blog',
-        snippet: 'About my new blog',
-        body: 'More about my new blog'
-    })
-
-    blog.save()
-        .then(result => {
-            res.send(result);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-});
-
-app.get('/all-blogs', (req, res) => {
-    Blog.find()
-        .then(result => {
-            res.send(result);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-});
-
-app.get('/single-blog', (req, res) => {
-    Blog.findById('679fdea747861a3d79fdf466')
-        .then(result => {
-            res.send(result);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-});
-
+// Routes
 app.get('/', (req, res) => {
     res.redirect('/blogs');
 });
@@ -88,6 +49,41 @@ app.get('/blogs', (req, res) => {
     Blog.find().sort({ createdAt: -1 })
         .then(result => {
             res.render('index', { blogs: result, title: 'All blogs' });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+app.post('/blogs', (req, res) => {
+    const blog = new Blog(req.body);
+
+    blog.save()
+        .then(result => {
+            res.redirect('/blogs');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+app.get('/blogs/:id', (req, res) => {
+    const id = req.params.id;
+    Blog.findById(id)
+        .then(result => {
+            res.render('details', { blog: result, title: 'Blog Details' });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+app.delete('/blogs/:id', (req, res) => {
+    const id = req.params.id;
+
+    Blog.findByIdAndDelete(id)
+        .then(result => {
+            res.json({ redirect: '/blogs' });
         })
         .catch(err => {
             console.log(err);
