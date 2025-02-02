@@ -18,6 +18,7 @@
   "homepage": "https://github.com/VeryBak3dPotato/BaileyConnor_M03_Tutorial#readme",
   "description": "",
   "dependencies": {
+    "express": "^4.21.2",
     "lodash": "^4.17.21"
   }
 }

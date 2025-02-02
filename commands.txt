@@ -8,7 +8,7 @@
 > nodemon server
 
 # installs a package locally in project
-> npm i --save <package name>
+> npm i <package name>
 
 # installs all dependencies in project
 > npm install
